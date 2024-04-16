@@ -65,8 +65,8 @@ class BookController extends Controller
 		// Fetch books that match the search query in either name or author_name columns
 		$books = DB::table('books')
 			->join('publishers', 'books.publisher_id', '=', 'publishers.id')
-			->join('book_author', 'books.id', '=', 'book_author.book_id')
-			->join('authors', 'book_author.author_id', '=', 'authors.id')
+			->leftJoin('book_author', 'books.id', '=', 'book_author.book_id')
+			->leftJoin('authors', 'book_author.author_id', '=', 'authors.id')
 			->where('books.name', 'like', "%$query%")
 			->orWhere('authors.name', 'like', "%$query%")
 			->select('books.*', 'publishers.name as publisher_name', 'authors.name as author_name')
