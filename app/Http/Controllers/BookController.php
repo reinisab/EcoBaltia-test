@@ -42,8 +42,8 @@ class BookController extends Controller
 
 		$books = DB::table('books')
 			->join('publishers', 'books.publisher_id', '=', 'publishers.id')
-			->join('book_author', 'books.id', '=', 'book_author.book_id')
-			->join('authors', 'book_author.author_id', '=', 'authors.id')
+			->leftJoin('book_author', 'books.id', '=', 'book_author.book_id')
+			->leftJoin('authors', 'book_author.author_id', '=', 'authors.id')
 			->whereYear('books.publish_date', $currentYear)
 			->whereMonth('books.publish_date', $currentMonth)
 			->select('books.*', 'publishers.name as publisher_name', 'authors.name as author_name')
